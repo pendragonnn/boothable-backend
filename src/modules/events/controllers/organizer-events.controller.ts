@@ -51,7 +51,7 @@ export class OrganizerEventsController {
   @Post(':id/map')
   @UseInterceptors(FileInterceptor('file', {
     storage: diskStorage({
-      destination: './uploads',
+      destination: './src/infrastructure/storage/upload/booth_map',
       filename: (req, file, cb) => {
         const uniqueSuffix = uuidv4() + extname(file.originalname);
         cb(null, uniqueSuffix);
@@ -72,7 +72,8 @@ export class OrganizerEventsController {
   ) {
     if (!file) throw new BadRequestException('File is required');
     // MOCK URL mapping for local storage. Real production would use S3/GCS.
-    const fileUrl = `http://localhost:3000/uploads/${file.filename}`;
+    const port = process.env.PORT || 3000;
+    const fileUrl = `http://localhost:${port}/storage/upload/booth_map/${file.filename}`;
     return this.eventsService.uploadMap(organizerId, id, fileUrl);
   }
 }

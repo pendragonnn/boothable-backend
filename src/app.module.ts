@@ -5,6 +5,8 @@ import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { EventsModule } from './modules/events/events.module';
 import { BoothsModule } from './modules/booths/booths.module';
+import { BookingsModule } from './modules/bookings/bookings.module';
+import { PaymentsModule } from './modules/payments/payments.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { BoothsModule } from './modules/booths/booths.module';
     AuthModule,
     EventsModule,
     BoothsModule,
+    BookingsModule,
+    PaymentsModule,
   ],
   controllers: [],
   providers: [],
