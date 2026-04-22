@@ -1,98 +1,131 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Boothable Backend API 🎪
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+**Boothable** adalah platform _marketplace_ penyewaan _booth_ (stan/bazar) tingkat lanjutan (Advanced Level) yang menghubungkan penyelenggara acara (Organizer) dengan penyewa _booth_ (Vendor). Sistem aplikasi ini juga memiliki entitas Admin (*Super User*) yang berperan sebagai penengah dan moderator untuk seluruh jalannya transaksi.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## 🛠️ Stack Teknologi
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Sistem backend ini dibangun menggunakan teknologi-teknologi modern dan kokoh untuk skalabilitas tingkat lanjut:
 
-## Project setup
+* **[NestJS](https://nestjs.com/)**: Framework Node.js yang sangat terstruktur, modul-sentris, dan efisien untuk menyokong Controller-Service pattern TypeScript.
+* **[Prisma ORM](https://www.prisma.io/)**: Menangani skema relasional, migrasi database, serta kueri yang aman (`type-safe`).
+* **[PostgreSQL](https://www.postgresql.org/)**: Basis data relasional (*Relational Database*) utama yang tangguh.
+* **[Zod](https://zod.dev/)**: Memastikan validasi skema input (DTOs) dan payload JSON selalu konsisten sebelum masuk ke *Controller*.
+* **[Winston](https://github.com/winstonjs/winston)**: Menggantikan *native logger* NestJS, berguna untuk menyimpan log terpusat dan *audit trail* operasional.
+* **[JWT & Passport](http://www.passportjs.org/)**: Autentikasi lintas (*stateless*) menggunakan metode Bearer Access Token tingkat industri.
+* **[Multer](https://github.com/expressjs/multer)**: Intersepti `multipart/form-data` untuk unggahan gambar / bukti pembayaran / peta *booth* acara.
 
-```bash
-$ npm install
+---
+
+## 📂 Struktur Repositori
+
+Proyek ini telah dikostumisasi menggunakan arsitektur adaptif (sering disebut arsitektur berbasis fitur / _feature-based components_):
+
+```
+📦 boothable-backend
+ ┣ 📂 doc
+ ┃ ┗ 📜 boothable_postman_collection.json (Koleksi API terpusat untuk uji Postman)
+ ┣ 📂 prisma
+ ┃ ┗ 📜 schema.prisma (Skema entitas dan relasi)
+ ┣ 📂 src
+ ┃ ┣ 📂 common
+ ┃ ┃ ┣ 📂 decorators (Misal: @Roles, @GetUser)
+ ┃ ┃ ┣ 📂 guards (Misal: JwtAuthGuard, RolesGuard)
+ ┃ ┃ ┗ 📂 pipes (Misal: ZodValidationPipe)
+ ┃ ┣ 📂 infrastructure
+ ┃ ┃ ┣ 📂 prisma (Prisma Module)
+ ┃ ┃ ┗ 📂 storage/upload (Pusat penyimpan lokal bukti statis & foto)
+ ┃ ┣ 📂 modules (Pusat Logika Bisnis)
+ ┃ ┃ ┣ 📂 auth (Login, Register JWT Token)
+ ┃ ┃ ┣ 📂 users (Profil, Update User)
+ ┃ ┃ ┣ 📂 events (Public, Vendor, Admin controllers)
+ ┃ ┃ ┣ 📂 booths (Manajemen Stan)
+ ┃ ┃ ┣ 📂 bookings (Algoritma pencegahan jadwal tumpang tindih)
+ ┃ ┃ ┗ 📂 payments (Pembayaran dan Statistik Pendapatan)
+ ┃ ┣ 📜 app.module.ts (Root modul NestJS)
+ ┃ ┗ 📜 main.ts (Bootstrapper NestJS)
+ ┗ 📜 package.json
 ```
 
-## Compile and run the project
+---
 
+## ⚙️ Petunjuk Pemasangan Lokal
+
+### 1. Prasyarat (*Prerequisites*)
+Pastikan hal-hal berikut sudah ter-install di mesin Anda:
+- **Node.js** (Versi 18 LTS ke atas direkomendasikan)
+- **PostgreSQL Database** (Berjalan secara lokal atau Anda bisa memakai Cloud DB URI seperti Supabase)
+
+### 2. Kloning Repositori
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+git clone https://github.com/username-anda/boothable-backend.git
+cd boothable-backend
+npm install
 ```
 
-## Run tests
+### 3. Konfigurasi Lingkungan (*Environment*)
+Buat file baru di direktori _root_ proyek dan beri nama `.env`, lalu ikuti format *boilerplate* berikut ini.
+*(Jangan bagikan kode `SECRET` asli ke ranah publik!)*
 
-```bash
-# unit tests
-$ npm run test
+```env
+# URL Koneksi PostgreSQL Anda
+# Format: postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=public
+DATABASE_URL="postgresql://postgres:password123@localhost:5432/boothable?schema=public"
 
-# e2e tests
-$ npm run test:e2e
+# Port spesifik untuk Node.JS (Default: 3000)
+PORT=3000
 
-# test coverage
-$ npm run test:cov
+# Rahasia untuk hash JWT (Ubah dengan string random agar aman)
+JWT_SECRET="rahasia_super_boothable_jwt_xxyz"
+
+# Waktu kedaluwarsa Token
+JWT_EXPIRES_IN="7d"
+
+# Konfigurasi Saluran Penyimpanan Lokal
+UPLOAD_DIR="./src/infrastructure/storage/upload"
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
+### 4. Setup Database & Migrasi
+Lakukan sinkronisasi schema Prisma ke PostgreSQL Anda, kemudian jalankan generate tipe data:
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+# Push schema dan buat tabel database perdana
+npx prisma db push
+
+# (Alternatif bila ada error migrations)
+# npx prisma migrate dev --name init
+
+# Generate Prisma Client Typings
+npx prisma generate
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### 5. Jalankan Aplikasi
+Aplikasi sudah siap diluncurkan.
 
-## Resources
+```bash
+# Versi Pengembangan (Watch Mode Cepat / Hot Reload)
+npm run start:dev
 
-Check out a few resources that may come in handy when working with NestJS:
+# Versi Production
+npm run build
+npm run start:prod
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+Server kini aktif merespon di `http://localhost:${PORT}/`. 🚀
 
-## Support
+---
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## 🔐 Sistem Autorisasi / Roles Berjenjang (RBAC)
 
-## Stay in touch
+Kami merancang struktur rute Controller dalam 3 cabang eksklusif berbekal **`Role-Based Access Control`**:
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+1. **Vendor**: Target pengguna reguler. Bisa mengambil `Access Token` via login, mencari Event (`GET /events`), mereservasi (*Booking*) stand, lalu *Upload* lampiran Bank Transfer.
+2. **Organizer**: Penanggung Jawab Penuh. Bisa membuat *Events*, merancang jumlah/peta *Booths*, mengatur/menyetujui *Bookings* di bawah manajemennya, dan mendapatkan pantauan Revenue Finansial global dari acaranya.
+3. **Admin**: God-Mode 👑. Dapat menghapus interaksi apa pun (termasuk *Force-Cancel* pemesanan nakal) secara membumi lintas data global dari semua Vendor dan Organizer.
 
-## License
+> **Uji coba API menggunakan Postman:**
+> Seluruh rute lengkap dengan *mock data body JSON* beserta dokumentasi detail *Header Bearer* & Endpoint Pagination (`?limit=10&page=1`) sudah tergabung langsung di dalam *workspace Postman* di repositori!
+> File lokasi: `doc/boothable_postman_collection.json`.
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+---
+*Ditenagai dan dirancang oleh kolaborasi modern Stack NestJS-Prisma TS.*
