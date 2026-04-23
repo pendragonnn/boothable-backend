@@ -78,12 +78,6 @@ PORT=3000
 
 # Rahasia untuk hash JWT (Ubah dengan string random agar aman)
 JWT_SECRET="rahasia_super_boothable_jwt_xxyz"
-
-# Waktu kedaluwarsa Token
-JWT_EXPIRES_IN="7d"
-
-# Konfigurasi Saluran Penyimpanan Lokal
-UPLOAD_DIR="./src/infrastructure/storage/upload"
 ```
 
 ### 4. Setup Database & Migrasi
