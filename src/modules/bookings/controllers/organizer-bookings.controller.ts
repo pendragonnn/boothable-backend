@@ -1,6 +1,6 @@
 import { Controller, Get, Patch, Body, Param, Query, UseGuards } from '@nestjs/common';
 import { BookingsService } from '../services/bookings.service';
-import { queryBookingSchema, QueryBookingDto, updateBookingStatusSchema, UpdateBookingStatusDto } from '../dtos/bookings.schema';
+import { queryBookingSchema, type QueryBookingDto, updateBookingStatusSchema, type UpdateBookingStatusDto } from '../dtos/bookings.schema';
 import { ZodValidationPipe } from '../../../common/pipes/zod-validation.pipe';
 import { JwtAuthGuard } from '../../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../../common/guards/roles.guard';

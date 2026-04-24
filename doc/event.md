@@ -23,6 +23,7 @@ Response Body (Success):
     {
       "id": 1,
       "eventName": "Tech Expo 2026",
+      "categoryId": "UUID_HERE",
       "organizerId": 2,
       "location": "Jakarta Convention Center",
       "startDate": "2026-08-10",
@@ -56,6 +57,7 @@ Response Body (Success):
   "data": {
     "id": 1,
     "eventName": "Tech Expo 2026",
+    "categoryId": "UUID_HERE",
     "organizerId": 2,
     "location": "Jakarta Convention Center",
     "startDate": "2026-08-10",
@@ -118,6 +120,7 @@ Request Body:
 ```json
 {
   "eventName": "Food Festival 2026",
+  "categoryId": "UUID_HERE",
   "location": "GBK Senayan",
   "startDate": "2026-09-01",
   "endDate": "2026-09-05",
@@ -132,6 +135,7 @@ Response Body (Success):
   "data": {
     "id": 2,
     "organizerId": 2,
+    "categoryId": "UUID_HERE",
     "eventName": "Food Festival 2026",
     "location": "GBK Senayan",
     "startDate": "2026-09-01",
@@ -169,6 +173,7 @@ Response Body (Success):
     {
       "id": 2,
       "eventName": "Food Festival 2026",
+      "categoryId": "UUID_HERE",
       "organizerId": 2,
       "location": "GBK Senayan",
       "startDate": "2026-09-01",
@@ -214,6 +219,7 @@ Response Body (Success):
   "data": {
     "id": 2,
     "organizerId": 2,
+    "categoryId": "UUID_HERE",
     "eventName": "Food Festival 2026",
     "location": "Senayan Park",
     "startDate": "2026-09-01",
@@ -294,6 +300,7 @@ Request Body:
 ```json
 {
   "eventName": "Official Expo 2026",
+  "categoryId": "UUID_HERE",
   "organizerId": 3,
   "location": "Jakarta",
   "startDate": "2026-10-01",
@@ -309,6 +316,7 @@ Response Body (Success):
   "data": {
     "id": 3,
     "eventName": "Official Expo 2026",
+    "categoryId": "UUID_HERE",
     "organizerId": 3,
     "location": "Jakarta",
     "startDate": "2026-10-01",
@@ -346,6 +354,7 @@ Response Body (Success):
     {
       "id": 1,
       "eventName": "Tech Expo",
+      "categoryId": "UUID_HERE",
       "organizerId": 2,
       "location": "JCC",
       "startDate": "2026-10-01",
@@ -391,6 +400,7 @@ Response Body (Success):
   "data": {
     "id": 2,
     "eventName": "Official Expo 2026",
+    "categoryId": "UUID_HERE",
     "organizerId": 3,
     "location": "Jakarta",
     "startDate": "2026-10-01",

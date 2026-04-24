@@ -31,9 +31,24 @@ model User {
   @@map("users")
 }
 
+model EventCategory {
+  id          String    @id @default(uuid()) @db.Uuid
+  name        String    @unique @db.VarChar(100)
+  slug        String    @unique @db.VarChar(100)
+  icon        String?   @db.VarChar(255)
+  description String?   @db.Text
+  createdAt   DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt   DateTime? @updatedAt @map("updated_at") @db.Timestamp(6)
+
+  events Event[]
+
+  @@map("event_categories")
+}
+
 model Event {
   id            String    @id @default(uuid()) @db.Uuid
   eventName     String    @map("event_name") @db.VarChar(200)
+  categoryId    String    @map("category_id") @db.Uuid
   organizerId   String?   @map("organizer_id") @db.Uuid
   location      String?   @db.VarChar(255)
   startDate     DateTime? @map("start_date") @db.Date
@@ -44,7 +59,8 @@ model Event {
   createdAt     DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
   updatedAt     DateTime? @updatedAt @map("updated_at") @db.Timestamp(6)
 
-  organizer User?   @relation(fields: [organizerId], references: [id])
+  category  EventCategory @relation(fields: [categoryId], references: [id])
+  organizer User?         @relation(fields: [organizerId], references: [id])
   booths    Booth[]
 
   @@map("events")

@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 export const createEventSchema = z.object({
   eventName: z.string().min(1, 'Event name is required'),
+  categoryId: z.string().uuid('Invalid category ID'),
   location: z.string().optional(),
   startDate: z.string().datetime().or(z.string().regex(/^\d{4}-\d{2}-\d{2}$/)).optional(), // allow date string
   endDate: z.string().datetime().or(z.string().regex(/^\d{4}-\d{2}-\d{2}$/)).optional(),

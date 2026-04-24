@@ -22,7 +22,7 @@ export class EventsService {
     if (endDate) where.endDate = { lte: new Date(endDate) };
 
     const [data, totalData] = await Promise.all([
-      this.prisma.event.findMany({ where, skip, take: limit }),
+      this.prisma.event.findMany({ where, skip, take: limit, include: { category: true } }),
       this.prisma.event.count({ where }),
     ]);
 
@@ -38,7 +38,7 @@ export class EventsService {
 
   async findOne(id: string) {
     this.logger.log(`Fetching event detail: ${id}`);
-    const event = await this.prisma.event.findUnique({ where: { id } });
+    const event = await this.prisma.event.findUnique({ where: { id }, include: { category: true } });
     if (!event) throw new NotFoundException('Event not found');
     return { data: event };
   }
@@ -49,6 +49,7 @@ export class EventsService {
     const event = await this.prisma.event.create({
       data: {
         eventName: dto.eventName,
+        categoryId: dto.categoryId,
         location: dto.location,
         startDate: dto.startDate ? new Date(dto.startDate) : undefined,
         endDate: dto.endDate ? new Date(dto.endDate) : undefined,
@@ -66,7 +67,7 @@ export class EventsService {
     const where = { organizerId };
 
     const [data, totalData] = await Promise.all([
-      this.prisma.event.findMany({ where, skip, take: limit }),
+      this.prisma.event.findMany({ where, skip, take: limit, include: { category: true } }),
       this.prisma.event.count({ where }),
     ]);
 
@@ -122,6 +123,7 @@ export class EventsService {
     const event = await this.prisma.event.create({
       data: {
         eventName: dto.eventName,
+        categoryId: dto.categoryId,
         location: dto.location,
         startDate: dto.startDate ? new Date(dto.startDate) : undefined,
         endDate: dto.endDate ? new Date(dto.endDate) : undefined,
@@ -138,7 +140,7 @@ export class EventsService {
     const skip = (page - 1) * limit;
 
     const [data, totalData] = await Promise.all([
-      this.prisma.event.findMany({ skip, take: limit }),
+      this.prisma.event.findMany({ skip, take: limit, include: { category: true } }),
       this.prisma.event.count(),
     ]);
 

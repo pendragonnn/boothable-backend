@@ -7,6 +7,7 @@ import { EventsModule } from './modules/events/events.module';
 import { BoothsModule } from './modules/booths/booths.module';
 import { BookingsModule } from './modules/bookings/bookings.module';
 import { PaymentsModule } from './modules/payments/payments.module';
+import { EventCategoriesModule } from './modules/event-categories/event-categories.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { PaymentsModule } from './modules/payments/payments.module';
     PrismaModule,
     UsersModule,
     AuthModule,
+    EventCategoriesModule,
     EventsModule,
     BoothsModule,
     BookingsModule,

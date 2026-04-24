@@ -15,13 +15,23 @@ async function main() {
   ]);
   console.log('5 Users seded');
 
+  // 1.5 Event Categories
+  const categories = await Promise.all([
+    prisma.eventCategory.create({ data: { name: 'Technology & Gadgets', slug: 'tech', icon: 'monitor' } }),
+    prisma.eventCategory.create({ data: { name: 'Food & Beverages', slug: 'food', icon: 'utensils' } }),
+    prisma.eventCategory.create({ data: { name: 'Music & Concerts', slug: 'music', icon: 'music' } }),
+    prisma.eventCategory.create({ data: { name: 'Arts & Exhibitions', slug: 'arts', icon: 'palette' } }),
+    prisma.eventCategory.create({ data: { name: 'Career & Business', slug: 'career', icon: 'briefcase' } }),
+  ]);
+  console.log('5 Event Categories seeded');
+
   // 2. Events
   const events = await Promise.all([
-    prisma.event.create({ data: { eventName: 'Tech Expo 2026', organizerId: users[1].id, location: 'JCC', startDate: new Date('2026-08-10'), endDate: new Date('2026-08-12'), paymentVa: 'BCA 12345678' } }),
-    prisma.event.create({ data: { eventName: 'Food Festival', organizerId: users[1].id, location: 'Senayan', startDate: new Date('2026-09-01'), endDate: new Date('2026-09-05'), paymentVa: 'MANDIRI 87654321' } }),
-    prisma.event.create({ data: { eventName: 'Music Concert', organizerId: users[3].id, location: 'ICE BSD', startDate: new Date('2026-10-01'), endDate: new Date('2026-10-03'), paymentVa: 'BNI 11112222' } }),
-    prisma.event.create({ data: { eventName: 'Art Exhibition', organizerId: users[3].id, location: 'Museum Nasional', startDate: new Date('2026-11-01'), endDate: new Date('2026-11-05'), paymentVa: 'BCA 55556666' } }),
-    prisma.event.create({ data: { eventName: 'Career Fair', organizerId: users[1].id, location: 'Balai Kartini', startDate: new Date('2026-12-01'), endDate: new Date('2026-12-02'), paymentVa: 'BRI 99990000' } }),
+    prisma.event.create({ data: { eventName: 'Tech Expo 2026', categoryId: categories[0].id, organizerId: users[1].id, location: 'JCC', startDate: new Date('2026-08-10'), endDate: new Date('2026-08-12'), paymentVa: 'BCA 12345678' } }),
+    prisma.event.create({ data: { eventName: 'Food Festival', categoryId: categories[1].id, organizerId: users[1].id, location: 'Senayan', startDate: new Date('2026-09-01'), endDate: new Date('2026-09-05'), paymentVa: 'MANDIRI 87654321' } }),
+    prisma.event.create({ data: { eventName: 'Music Concert', categoryId: categories[2].id, organizerId: users[3].id, location: 'ICE BSD', startDate: new Date('2026-10-01'), endDate: new Date('2026-10-03'), paymentVa: 'BNI 11112222' } }),
+    prisma.event.create({ data: { eventName: 'Art Exhibition', categoryId: categories[3].id, organizerId: users[3].id, location: 'Museum Nasional', startDate: new Date('2026-11-01'), endDate: new Date('2026-11-05'), paymentVa: 'BCA 55556666' } }),
+    prisma.event.create({ data: { eventName: 'Career Fair', categoryId: categories[4].id, organizerId: users[1].id, location: 'Balai Kartini', startDate: new Date('2026-12-01'), endDate: new Date('2026-12-02'), paymentVa: 'BRI 99990000' } }),
   ]);
   console.log('5 Events seeded');
 

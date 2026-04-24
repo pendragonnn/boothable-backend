@@ -374,7 +374,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"eventName\": \"New Event\",\n  \"location\": \"Jakarta\",\n  \"startDate\": \"2026-10-01\",\n  \"endDate\": \"2026-10-05\"\n}"
+              "raw": "{\n  \"eventName\": \"New Event\",\n  \"categoryId\": \"TARGET_CATEGORY_ID\",\n  \"location\": \"Jakarta\",\n  \"startDate\": \"2026-10-01\",\n  \"endDate\": \"2026-10-05\"\n}"
             }
           }
         },
@@ -561,7 +561,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"eventName\": \"Official Event\",\n  \"organizerId\": \"UUID_HERE\"\n}"
+              "raw": "{\n  \"eventName\": \"Official Event\",\n  \"categoryId\": \"TARGET_CATEGORY_ID\",\n  \"organizerId\": \"UUID_HERE\"\n}"
             }
           }
         },
@@ -1583,6 +1583,225 @@
                   "value": "{{accessToken}}",
                   "type": "string"
                 }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Event Categories (Admin)",
+      "item": [
+        {
+          "name": "Create Category",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/event-categories",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "event-categories"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"E-Sports Tournament\",\n  \"slug\": \"e-sports\",\n  \"icon\": \"gamepad-2\",\n  \"description\": \"Kategori turnamen olahraga elektronik.\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/admin/event-categories?page=1&limit=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "event-categories"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Category Detail",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/admin/event-categories/TARGET_CATEGORY_ID",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "event-categories",
+                "TARGET_CATEGORY_ID"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Category",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/admin/event-categories/TARGET_CATEGORY_ID",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "event-categories",
+                "TARGET_CATEGORY_ID"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"icon\": \"laptop\",\n  \"description\": \"Hardware and software tech events\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Category",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/admin/event-categories/TARGET_CATEGORY_ID",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "admin",
+                "event-categories",
+                "TARGET_CATEGORY_ID"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{accessToken}}",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Event Categories (Public)",
+      "item": [
+        {
+          "name": "Get All Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/event-categories?page=1&limit=10",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "event-categories"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Category Detail",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/event-categories/TARGET_CATEGORY_ID",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "event-categories",
+                "TARGET_CATEGORY_ID"
               ]
             }
           }
