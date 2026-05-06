@@ -30,6 +30,7 @@ Response Body (Success):
       "endDate": "2026-08-12",
       "description": "Pameran teknologi terbesar di Indonesia",
       "eventBoothMap": "https://storage.example.com/map/1.jpg",
+      "eventCover": "https://storage.example.com/cover/1.jpg",
       "paymentVa": "8077-1234-5678",
       "createdAt": "2026-04-21T00:00:00.000Z",
       "updatedAt": "2026-04-21T00:00:00.000Z"
@@ -64,6 +65,7 @@ Response Body (Success):
     "endDate": "2026-08-12",
     "description": "Pameran teknologi terbesar di Indonesia",
     "eventBoothMap": "https://storage.example.com/map/1.jpg",
+    "eventCover": "https://storage.example.com/cover/1.jpg",
     "paymentVa": "8077-1234-5678",
     "createdAt": "2026-04-21T00:00:00.000Z",
     "updatedAt": "2026-04-21T00:00:00.000Z"
@@ -142,6 +144,7 @@ Response Body (Success):
     "endDate": "2026-09-05",
     "description": "Festival kuliner nusantara",
     "eventBoothMap": null,
+    "eventCover": null,
     "paymentVa": "8077-0000-1111",
     "createdAt": "2026-04-21T10:00:00.000Z",
     "updatedAt": "2026-04-21T10:00:00.000Z"
@@ -180,6 +183,7 @@ Response Body (Success):
       "endDate": "2026-09-05",
       "description": "Festival kuliner nusantara",
       "eventBoothMap": null,
+      "eventCover": null,
       "paymentVa": "8077-0000-1111",
       "createdAt": "2026-04-21T10:00:00.000Z",
       "updatedAt": "2026-04-21T10:00:00.000Z"
@@ -226,6 +230,7 @@ Response Body (Success):
     "endDate": "2026-09-05",
     "description": "Festival kuliner nusantara",
     "eventBoothMap": null,
+    "eventCover": null,
     "paymentVa": "8077-0000-1111",
     "createdAt": "2026-04-21T10:00:00.000Z",
     "updatedAt": "2026-04-21T11:00:00.000Z"
@@ -281,6 +286,32 @@ Response Body (Success):
 
 ---
 
+### Upload Event Cover
+
+Endpoint: POST `/organizer/events/:id/cover`
+Akses: Authenticated (Organizer)
+Tujuan: Mengunggah URL gambar/berkas `event_cover` secara multipart.
+
+Request Headers:
+```
+Authorization: Bearer <accessToken>
+Content-Type: multipart/form-data
+```
+
+Request Body:
+- `file`: (Image binary)
+
+Response Body (Success): 
+```json
+{
+  "data": {
+    "eventCover": "https://storage.example.com/cover/2.jpg"
+  }
+}
+```
+
+---
+
 ## 3. Events Module (Admin POV)
 
 *(Pencocokan ERD: Field verified tidak ada di ERD database sehingga endpoint verify event dihapus untuk menjaga kesesuaian)*
@@ -323,6 +354,7 @@ Response Body (Success):
     "endDate": "2026-10-05",
     "description": "Acara resmi platform",
     "eventBoothMap": null,
+    "eventCover": null,
     "paymentVa": "8077-9999-8888",
     "createdAt": "2026-04-21T12:00:00.000Z",
     "updatedAt": "2026-04-21T12:00:00.000Z"
@@ -361,6 +393,7 @@ Response Body (Success):
       "endDate": "2026-10-05",
       "description": "Acara Tech",
       "eventBoothMap": null,
+      "eventCover": null,
       "paymentVa": "8077-9999-8888",
       "createdAt": "2026-04-21T12:00:00.000Z",
       "updatedAt": "2026-04-21T12:00:00.000Z"
@@ -407,6 +440,7 @@ Response Body (Success):
     "endDate": "2026-10-05",
     "description": "[Moderated] Deskripsi dihapus karena melanggar aturan komunitas.",
     "eventBoothMap": null,
+    "eventCover": null,
     "paymentVa": "8077-9999-8888",
     "createdAt": "2026-04-21T12:00:00.000Z",
     "updatedAt": "2026-04-21T13:00:00.000Z"

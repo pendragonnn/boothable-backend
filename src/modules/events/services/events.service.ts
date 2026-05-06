@@ -117,6 +117,19 @@ export class EventsService {
     return { data: { eventBoothMap: updated.eventBoothMap } };
   }
 
+  async uploadCover(organizerId: string, id: string, fileUrl: string) {
+    this.logger.log(`Uploading cover for event ${id}`);
+    const event = await this.prisma.event.findUnique({ where: { id } });
+    if (!event) throw new NotFoundException('Event not found');
+    if (event.organizerId !== organizerId) throw new ForbiddenException('Not authorized');
+
+    const updated = await this.prisma.event.update({
+      where: { id },
+      data: { eventCover: fileUrl },
+    });
+    return { data: { eventCover: updated.eventCover } };
+  }
+
   // --- Admin Operations ---
   async createAdmin(dto: CreateEventDto) {
     this.logger.log(`Admin creating event`);

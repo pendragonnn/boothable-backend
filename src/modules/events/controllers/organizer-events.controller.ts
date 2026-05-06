@@ -76,4 +76,32 @@ export class OrganizerEventsController {
     const fileUrl = `http://localhost:${port}/storage/upload/booth_map/${file.filename}`;
     return this.eventsService.uploadMap(organizerId, id, fileUrl);
   }
+
+  @Post(':id/cover')
+  @UseInterceptors(FileInterceptor('file', {
+    storage: diskStorage({
+      destination: './src/infrastructure/storage/upload/event_cover',
+      filename: (req, file, cb) => {
+        const uniqueSuffix = uuidv4() + extname(file.originalname);
+        cb(null, uniqueSuffix);
+      }
+    }),
+    fileFilter: (req, file, cb) => {
+      if (!file.mimetype.match(/\/(jpg|jpeg|png|gif)$/)) {
+        return cb(new BadRequestException('Only image files are allowed!'), false);
+      }
+      cb(null, true);
+    }
+  }))
+  async uploadCover(
+    @GetUser('userId') organizerId: string,
+    @Param('id') id: string,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    @UploadedFile() file: any
+  ) {
+    if (!file) throw new BadRequestException('File is required');
+    const port = process.env.PORT || 3000;
+    const fileUrl = `http://localhost:${port}/storage/upload/event_cover/${file.filename}`;
+    return this.eventsService.uploadCover(organizerId, id, fileUrl);
+  }
 }

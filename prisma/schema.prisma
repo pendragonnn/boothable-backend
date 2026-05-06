@@ -55,6 +55,7 @@ model Event {
   endDate       DateTime? @map("end_date") @db.Date
   description   String?   @db.Text
   eventBoothMap String?   @map("event_booth_map") @db.VarChar(255)
+  eventCover    String?   @map("event_cover") @db.VarChar(255)
   paymentVa     String?   @map("payment_va") @db.VarChar(255)
   createdAt     DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
   updatedAt     DateTime? @updatedAt @map("updated_at") @db.Timestamp(6)
