@@ -12,17 +12,24 @@ export class EventsService {
   // --- Public Operations ---
   async findAllPublic(query: QueryEventDto) {
     this.logger.log('Fetching public events');
-    const { search, location, startDate, endDate, page, limit } = query;
+    const { search, categoryId, location, startDate, endDate, sort, page, limit } = query;
     const skip = (page - 1) * limit;
 
     const where: Prisma.EventWhereInput = {};
     if (search) where.eventName = { contains: search, mode: 'insensitive' };
+    if (categoryId && categoryId !== 'all') where.categoryId = categoryId;
     if (location) where.location = { contains: location, mode: 'insensitive' };
     if (startDate) where.startDate = { gte: new Date(startDate) };
     if (endDate) where.endDate = { lte: new Date(endDate) };
 
+    let orderBy: Prisma.EventOrderByWithRelationInput | Prisma.EventOrderByWithRelationInput[] = { createdAt: 'desc' }; // default newest
+    if (sort === 'oldest') orderBy = { createdAt: 'asc' };
+    else if (sort === 'upcoming') orderBy = { startDate: 'asc' };
+    else if (sort === 'name_asc') orderBy = { eventName: 'asc' };
+    else if (sort === 'name_desc') orderBy = { eventName: 'desc' };
+
     const [data, totalData] = await Promise.all([
-      this.prisma.event.findMany({ where, skip, take: limit, include: { category: true } }),
+      this.prisma.event.findMany({ where, orderBy, skip, take: limit, include: { category: true } }),
       this.prisma.event.count({ where }),
     ]);
 

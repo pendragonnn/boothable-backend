@@ -19,9 +19,11 @@ export type UpdateEventDto = z.infer<typeof updateEventSchema>;
 
 export const queryEventSchema = z.object({
   search: z.string().optional(),
+  categoryId: z.string().optional(),
   location: z.string().optional(),
   startDate: z.string().optional(),
   endDate: z.string().optional(),
+  sort: z.enum(['newest', 'oldest', 'upcoming', 'name_asc', 'name_desc']).optional(),
   page: z.coerce.number().min(1).default(1),
   limit: z.coerce.number().min(1).default(10),
 });

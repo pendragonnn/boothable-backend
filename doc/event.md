@@ -10,9 +10,11 @@ Tujuan: Mengambil daftar semua acara yang tersedia dengan fitur Search.
 
 Query Parameters:
 - `search` (optional)
+- `categoryId` (optional) - Filter by specific category ID or "all"
 - `location` (optional)
 - `startDate` (optional)
 - `endDate` (optional)
+- `sort` (optional) - Values: `newest`, `oldest`, `upcoming`, `name_asc`, `name_desc`
 - `page` (optional)
 - `limit` (optional)
 
